@@ -58,5 +58,11 @@
     "name": "PRESTIGE",
     "email": "email.com",
     "phone": "777 77 77"
+  },
+  {
+    "id": "7dcaaad1-c060-4f5b-a296-0ed0185d97a4",
+    "name": "PRESTIGE1",
+    "email": "email.com",
+    "phone": "777 77 77"
   }
 ]
