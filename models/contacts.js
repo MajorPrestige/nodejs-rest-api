@@ -13,31 +13,14 @@ const listContacts = async () => {
   return JSON.parse(data);
 };
 
-const getContactById = async (id) => {
+const getContactById = async (contactId) => {
   const contacts = await listContacts();
-  const contactId = String(id);
   const desiredContact = contacts.find((el) => el.id === contactId);
 
   return desiredContact || null;
 };
 
-const removeContactById = async (id) => {
-  const contacts = await listContacts();
-  const contactId = String(id);
-  const indexToRemove = contacts.findIndex((el) => el.id === contactId);
-
-  if (indexToRemove === -1) {
-    return null;
-  }
-
-  const [contactToRemove] = contacts.splice(indexToRemove, 1);
-
-  updateContacts(contacts);
-
-  return contactToRemove;
-};
-
-const addContact = async (name, email, phone) => {
+const addContact = async ({ name, email, phone }) => {
   const contacts = await listContacts();
 
   const newContact = {
@@ -48,9 +31,37 @@ const addContact = async (name, email, phone) => {
   };
 
   contacts.push(newContact);
-  updateContacts(contacts);
+  await updateContacts(contacts);
 
   return newContact;
+};
+
+const removeContactById = async (contactId) => {
+  const contacts = await listContacts();
+  const indexToRemove = contacts.findIndex((el) => el.id === contactId);
+
+  if (indexToRemove === -1) {
+    return null;
+  }
+
+  const [contactToRemove] = contacts.splice(indexToRemove, 1);
+  await updateContacts(contacts);
+
+  return contactToRemove;
+};
+
+const updateContactById = async (contactId, newContact) => {
+  const contacts = await listContacts();
+  const indexToUpdate = contacts.findIndex((el) => el.id === contactId);
+
+  if (indexToUpdate === -1) {
+    return null;
+  }
+
+  contacts[indexToUpdate] = { contactId, ...newContact };
+  await updateContacts(contacts)
+
+  return contacts[indexToUpdate];
 };
 
 module.exports = {
@@ -58,4 +69,5 @@ module.exports = {
   getContactById,
   removeContactById,
   addContact,
+  updateContactById,
 };
