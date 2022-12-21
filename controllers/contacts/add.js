@@ -1,9 +1,11 @@
-// const contacts = require('../../models/contacts');
-const Contact = require('../../models/contact');
-const { RequestError, contactSchema } = require('../../helpers');
+const {
+  Contact,
+  schemas: { addSchema },
+} = require('../../models/contact');
+const { RequestError } = require('../../helpers');
 
 const add = async (req, res) => {
-  const { error } = contactSchema.validate(req.body);
+  const { error } = addSchema.validate(req.body);
 
   if (error) {
     throw RequestError(400, error.message);
