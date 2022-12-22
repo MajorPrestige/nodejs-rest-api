@@ -1,9 +1,9 @@
 const RequestError = require('./RequestError');
 const ctrlWrapper = require('./ctrlWrapper');
-const contactSchema = require('./contactSchema');
+const serverErrorHandler = require('./serverErrorHandler');
 
 module.exports = {
   RequestError,
   ctrlWrapper,
-  contactSchema,
+  serverErrorHandler
 };
