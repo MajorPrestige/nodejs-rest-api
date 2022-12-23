@@ -9,7 +9,7 @@
     "lint:fix": "eslint --fix **/*.js"
   },
   "engines": {
-    "node": "18.12.1"
+    "node": ">=18 <19"
   },
   "dependencies": {
     "cors": "2.8.5",
