@@ -3,9 +3,10 @@ const { isValidObjectId } = require('mongoose');
 const { RequestError } = require('../helpers');
 
 const isValidId = (req, res, next) => {
-  const { id } = req.params;
-  if (!isValidObjectId(id)) {
-    next(RequestError(400, `${id} is not valid id format`));
+  const { contactId } = req.params;
+
+  if (!isValidObjectId(contactId)) {
+    next(RequestError(400, `${contactId} is not valid id format`));
   }
   next();
 };

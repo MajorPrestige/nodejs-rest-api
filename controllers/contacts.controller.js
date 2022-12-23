@@ -1,7 +1,4 @@
-const {
-  Contact,
-  schemas: { addSchema, updateFavoriteSchema },
-} = require('../models/contact');
+const { Contact } = require('../models/Contact');
 const { RequestError, ctrlWrapper } = require('../helpers');
 
 const getAll = async (req, res) => {
@@ -19,12 +16,6 @@ const getById = async (req, res) => {
 };
 
 const add = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-
-  if (error) {
-    throw RequestError(400, error.message);
-  }
-
   const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
@@ -39,12 +30,6 @@ const remove = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-
-  if (error) {
-    throw RequestError(400, error.message);
-  }
-
   const { contactId } = req.params;
   const result = await Contact.findByIdAndUpdate(contactId, req.body, { new: true });
 
@@ -56,12 +41,6 @@ const update = async (req, res) => {
 };
 
 const updateFavorite = async (req, res) => {
-  const { error } = updateFavoriteSchema.validate(req.body);
-
-  if (error) {
-    throw RequestError(400, 'missing field favorite');
-  }
-
   const { contactId } = req.params;
   const result = await Contact.findByIdAndUpdate(contactId, req.body, {
     new: true,
