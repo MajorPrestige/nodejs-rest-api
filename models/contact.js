@@ -20,14 +20,16 @@ const contactSchema = new Schema(
     },
   },
   { versionKey: false, timestamps: true }
-);
+); // check on back-end request body
+
+contactSchema.post('save', serverErrorHandler); // check for any validate errors and update error status (default err.status 500)
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
   favorite: Joi.boolean().required(),
-});
+}); // check front-end request body
 
 const updateFavoriteSchema = Joi.object({
   favorite: Joi.boolean().required(),
@@ -38,7 +40,6 @@ const schemas = {
   updateFavoriteSchema,
 };
 
-contactSchema.post('save', serverErrorHandler);
 
 const Contact = model('contact', contactSchema);
 
