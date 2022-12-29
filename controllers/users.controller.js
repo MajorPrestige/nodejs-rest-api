@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const { User } = require('../models/User');
 const { RequestError, ctrlWrapper } = require('../helpers');
 
@@ -9,14 +11,39 @@ const signup = async (req, res) => {
     throw RequestError(409, 'Email has already exist');
   }
 
-  const newUser = await User.create({ password, email });
+  const hashPassword = await bcrypt.hash(password, 7);
+  const newUser = await User.create({ password: hashPassword, email });
+
   res.status(201).json({
-    email: newUser.email,
-    subscription: newUser.subscription,
+    user: {
+      email: newUser.email,
+      subscription: newUser.subscription,
+    },
   });
 };
 
-const signin = async (req, res) => {};
+const signin = async (req, res) => {
+  const { password, email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw RequestError(401, 'invalid email');
+  }
+
+  const passwordCompares = await bcrypt.compare(password, user.password);
+
+  if (!passwordCompares) {
+    throw RequestError(401, 'invalid password');
+  }
+
+  res.status(201).json({
+    token: "exampletoken",
+    user: {
+      email: user.email,
+      subscription: user.subscription,
+    },
+  });
+};
 
 const signout = async (req, res) => {};
 

@@ -36,7 +36,7 @@ const userSignupSchema = Joi.object({
 });
 
 const userSigninSchema = Joi.object({
-  password: Joi.string().min(6).required(),
+  password: Joi.string().required(),
   email: Joi.string().email().required(),
 });
 
