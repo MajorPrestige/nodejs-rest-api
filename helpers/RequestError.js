@@ -9,7 +9,7 @@ const messages = {
 const RequestError = (status, message = messages[status]) => {
   const error = new Error(message);
   error.status = status;
-  throw error;
+  return error;
 };
 
 module.exports = RequestError;
