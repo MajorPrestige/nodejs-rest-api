@@ -26,8 +26,8 @@ contactSchema.post('save', serverErrorHandler); // check for any validate errors
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
+  email: Joi.string().email().required(),
+  phone: Joi.string().max(16).required(),
   favorite: Joi.boolean().required(),
 }); // check front-end request body
 
