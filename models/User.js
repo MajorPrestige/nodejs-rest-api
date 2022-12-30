@@ -40,11 +40,16 @@ const userSigninSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
+const userUpdateSubscriptionSchema = Joi.object({
+  subscription: Joi.string().valid(...subscription).required(),
+});
+
 userShema.post('save', serverErrorHandler);
 
 const shemas = {
   userSignupSchema,
   userSigninSchema,
+  userUpdateSubscriptionSchema
 };
 
 const User = model('user', userShema);

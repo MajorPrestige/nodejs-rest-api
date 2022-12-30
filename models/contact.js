@@ -18,6 +18,10 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
   },
   { versionKey: false, timestamps: true }
 ); // check on back-end request body
@@ -39,7 +43,6 @@ const schemas = {
   addSchema,
   updateFavoriteSchema,
 };
-
 
 const Contact = model('contact', contactSchema);
 

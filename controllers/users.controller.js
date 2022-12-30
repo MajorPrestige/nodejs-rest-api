@@ -42,7 +42,8 @@ const signin = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "7 days"});
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '7 days' });
+  await User.findByIdAndUpdate(user._id, { token });
 
   res.status(201).json({
     token,
@@ -53,13 +54,32 @@ const signin = async (req, res) => {
   });
 };
 
-const signout = async (req, res) => {};
+const signout = async (req, res) => {
+  const { _id } = req.user;
+  await User.findByIdAndUpdate(_id, { token: null });
+  res.status(204);
+};
 
-const current = async (req, res) => {};
+const current = async (req, res) => {
+  const { email, subscription } = req.user;
+  res.json({
+    email,
+    subscription,
+  });
+};
+
+const updateSubscription = async (req, res) => {
+  const { _id } = req.user;
+  const { subscription } = req.body;
+  const result = await User.findByIdAndUpdate(_id, { subscription }, { new: true });
+
+  res.json(result);
+};
 
 module.exports = {
   signup: ctrlWrapper(signup),
   signin: ctrlWrapper(signin),
   signout: ctrlWrapper(signout),
   current: ctrlWrapper(current),
+  updateSubscription: ctrlWrapper(updateSubscription),
 };
