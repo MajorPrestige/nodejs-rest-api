@@ -5,5 +5,5 @@ const serverErrorHandler = require('./serverErrorHandler');
 module.exports = {
   RequestError,
   ctrlWrapper,
-  serverErrorHandler
+  serverErrorHandler,
 };
