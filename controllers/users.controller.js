@@ -1,5 +1,8 @@
+const fs = require('fs/promises');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const gravatar = require('gravatar');
 
 const { User } = require('../models/User');
 const { RequestError, ctrlWrapper } = require('../helpers');
@@ -13,8 +16,9 @@ const signup = async (req, res) => {
     throw RequestError(409, 'Email has already exist');
   }
 
+  const avatarURL = gravatar.url(email);
   const hashPassword = await bcrypt.hash(password, 7);
-  const newUser = await User.create({ password: hashPassword, email });
+  const newUser = await User.create({ password: hashPassword, email, avatarURL });
 
   res.status(201).json({
     user: {
@@ -69,11 +73,32 @@ const current = async (req, res) => {
 };
 
 const updateSubscription = async (req, res) => {
-  const { _id } = req.user;
+  const { _id, email } = req.user;
   const { subscription } = req.body;
   const result = await User.findByIdAndUpdate(_id, { subscription }, { new: true });
 
-  res.json(result);
+  res.json({
+    email,
+    subscription: result.subscription,
+  });
+};
+
+const updateAvatar = async (req, res) => {
+  const { path: tempUpload, originalname } = req.file;
+  const { _id, email } = req.user;
+
+  // if filename will duplicate - rewrite file. So we createa uniqe name
+  const filename = `${_id}_${originalname}`
+
+  const resultUpload = path.join(__dirname, '../public', 'avatars', filename);
+  await fs.rename(tempUpload, resultUpload);
+  const avatarURL = path.join('avatars', filename);
+  const result = await User.findByIdAndUpdate(_id, { avatarURL }, { new: true });
+
+  res.json({
+    email,
+    avatarURL: result.avatarURL,
+  });
 };
 
 module.exports = {
@@ -82,4 +107,5 @@ module.exports = {
   signout: ctrlWrapper(signout),
   current: ctrlWrapper(current),
   updateSubscription: ctrlWrapper(updateSubscription),
+  updateAvatar: ctrlWrapper(updateAvatar),
 };
