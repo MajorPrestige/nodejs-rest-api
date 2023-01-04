@@ -18,6 +18,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+
   },
   { versionKey: false, timestamps: true }
 ); // check on back-end request body
@@ -26,8 +31,8 @@ contactSchema.post('save', serverErrorHandler); // check for any validate errors
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
+  email: Joi.string().email().required(),
+  phone: Joi.string().max(16).required(),
   favorite: Joi.boolean().required(),
 }); // check front-end request body
 
@@ -39,7 +44,6 @@ const schemas = {
   addSchema,
   updateFavoriteSchema,
 };
-
 
 const Contact = model('contact', contactSchema);
 
