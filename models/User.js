@@ -52,7 +52,7 @@ const userUpdateSubscriptionSchema = Joi.object({
 });
 
 const userUpdateAvatarSchema = Joi.object({
-  // avatarURL: Joi.string().required(),
+  avatarURL: Joi.string(),
 });
 
 userShema.post('save', serverErrorHandler);

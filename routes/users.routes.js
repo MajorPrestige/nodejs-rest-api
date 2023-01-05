@@ -24,7 +24,7 @@ router.patch(
 router.patch(
   '/avatars',
   authenticate,
-  upload.single('avatar'),
+  upload.single('avatarURL'),
   isValidBody(userUpdateAvatarSchema),
   ctrl.updateAvatar
 );

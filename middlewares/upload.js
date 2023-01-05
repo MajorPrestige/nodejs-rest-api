@@ -11,7 +11,7 @@ const multerConfig = multer.diskStorage({
 });
 
 const upload = multer({
-  storage: multerConfig, 
+  storage: multerConfig,
 });
 
 // upload.single("NAME") - //* one file
@@ -19,6 +19,6 @@ const upload = multer({
 // upload.fileds([{
 //  name: "NAME"
 //  maxCount: 100
-// }]) -  //* can create more fields 
+// }]) -  //* can create more fields
 
 module.exports = upload;

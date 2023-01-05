@@ -87,8 +87,8 @@ const updateAvatar = async (req, res) => {
   const { path: tempUpload, originalname } = req.file;
   const { _id, email } = req.user;
 
-  // if filename will duplicate - rewrite file. So we createa uniqe name
-  const filename = `${_id}_${originalname}`
+  // if filename will duplicate - rewrite file. So we create a uniqe name
+  const filename = `${_id}_${originalname}`;
 
   const resultUpload = path.join(__dirname, '../public', 'avatars', filename);
   await fs.rename(tempUpload, resultUpload);
