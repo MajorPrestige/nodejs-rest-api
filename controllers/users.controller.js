@@ -3,6 +3,7 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const gravatar = require('gravatar');
+const Jimp = require("jimp")
 
 const { User } = require('../models/User');
 const { RequestError, ctrlWrapper } = require('../helpers');
@@ -92,6 +93,10 @@ const updateAvatar = async (req, res) => {
 
   const resultUpload = path.join(__dirname, '../public', 'avatars', filename);
   await fs.rename(tempUpload, resultUpload);
+
+  const resizeFile = await Jimp.read(resultUpload);
+  await resizeFile.resize(250, 250).write(resultUpload);
+  
   const avatarURL = path.join('avatars', filename);
   const result = await User.findByIdAndUpdate(_id, { avatarURL }, { new: true });
 
