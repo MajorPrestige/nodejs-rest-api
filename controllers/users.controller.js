@@ -34,7 +34,7 @@ const signin = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw RequestError(401, 'invalid email');
+    throw RequestError(400, 'QWE');
   }
 
   const passwordCompares = await bcrypt.compare(password, user.password);

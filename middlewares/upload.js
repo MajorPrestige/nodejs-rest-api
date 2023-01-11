@@ -14,11 +14,4 @@ const upload = multer({
   storage: multerConfig,
 });
 
-// upload.single("NAME") - //* one file
-// upload.array("NAME",  8) - //* 8 files
-// upload.fileds([{
-//  name: "NAME"
-//  maxCount: 100
-// }]) -  //* can create more fields
-
 module.exports = upload;

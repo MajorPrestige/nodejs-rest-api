@@ -51,17 +51,12 @@ const userUpdateSubscriptionSchema = Joi.object({
     .required(),
 });
 
-const userUpdateAvatarSchema = Joi.object({
-  avatarURL: Joi.string(),
-});
-
 userShema.post('save', serverErrorHandler);
 
 const shemas = {
   userSignupSchema,
   userSigninSchema,
   userUpdateSubscriptionSchema,
-  userUpdateAvatarSchema,
 };
 
 const User = model('user', userShema);

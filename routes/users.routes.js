@@ -3,12 +3,7 @@ const express = require('express');
 const ctrl = require('../controllers/users.controller');
 const { isValidBody, authenticate, upload } = require('../middlewares');
 const {
-  shemas: {
-    userSignupSchema,
-    userSigninSchema,
-    userUpdateSubscriptionSchema,
-    userUpdateAvatarSchema,
-  },
+  shemas: { userSignupSchema, userSigninSchema, userUpdateSubscriptionSchema },
 } = require('../models/User');
 
 const router = express.Router();
@@ -24,8 +19,17 @@ router.patch(
 router.patch(
   '/avatars',
   authenticate,
+
+  /* 
+upload.single("NAME") - //* one file
+upload.array("NAME",  8) - //* 8 files
+upload.fileds([{
+  name: "NAME"
+  maxCount: 100
+}]) -  //* can create more fields
+  */
+
   upload.single('avatarURL'),
-  isValidBody(userUpdateAvatarSchema),
   ctrl.updateAvatar
 );
 router.get('/signout', authenticate, ctrl.signout);
