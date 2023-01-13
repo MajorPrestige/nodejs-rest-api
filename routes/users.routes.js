@@ -3,13 +3,18 @@ const express = require('express');
 const ctrl = require('../controllers/users.controller');
 const { isValidBody, authenticate, upload } = require('../middlewares');
 const {
-  shemas: { userSignupSchema, userSigninSchema, userUpdateSubscriptionSchema },
+  shemas: { userSignupSchema, userSigninSchema, userUpdateSubscriptionSchema, userEmailSchema },
 } = require('../models/User');
 
 const router = express.Router();
 
 router.post('/signup', isValidBody(userSignupSchema), ctrl.signup);
+router.get('/verify/:verificationToken', ctrl.verify);
+router.post("/verify", isValidBody(userEmailSchema), ctrl.resendEmail)
+
+
 router.post('/signin', isValidBody(userSigninSchema), ctrl.signin);
+
 router.patch(
   '/subscription',
   authenticate,
@@ -32,6 +37,7 @@ upload.fileds([{
   upload.single('avatarURL'),
   ctrl.updateAvatar
 );
+
 router.get('/signout', authenticate, ctrl.signout);
 router.get('/current', authenticate, ctrl.current);
 
