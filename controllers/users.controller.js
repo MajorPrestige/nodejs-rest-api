@@ -29,17 +29,17 @@ const signup = async (req, res) => {
     verificationToken,
   });
 
-  // const mail = {
-  //   to: email,
-  //   subject: 'Email verification',
-  //   html: `<a href="http://localhost:3000/api/auth/verify/${verificationToken}" target="_blank">Verify email</a>`,
-  // };
-
   const mail = {
     to: email,
-    subject: 'After approve',
-    html: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consectetur, dolores ea perspiciatis deleniti rerum odit aliquid accusamus. Atque debitis architecto a nostrum natus. Doloremque aliquam odit eos quam adipisci minus quisquam expedita, fugiat, veritatis, illum animi nisi. Ullam nisi qui, assumenda libero, fugit magni, adipisci possimus repellat obcaecati nam culpa nulla iure ducimus earum nesciunt quos eum explicabo. Animi temporibus tempore doloremque voluptatem sint architecto magnam quaerat non amet ad perferendis eos nemo cumque nulla eum eius libero nobis, perspiciatis veritatis repellendus, qui corporis. Veniam, delectus? Nobis dolores, eius nostrum maiores similique veniam perspiciatis expedita! Enim ipsum quae placeat!</p>`,
+    subject: 'Email verification',
+    html: `<a href="http://localhost:3000/api/auth/verify/${verificationToken}" target="_blank">Verify email</a>`,
   };
+
+  // const mail = {
+  //   to: email,
+  //   subject: 'After approve',
+  //   html: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consectetur, dolores ea perspiciatis deleniti rerum odit aliquid accusamus. Atque debitis architecto a nostrum natus. Doloremque aliquam odit eos quam adipisci minus quisquam expedita, fugiat, veritatis, illum animi nisi. Ullam nisi qui, assumenda libero, fugit magni, adipisci possimus repellat obcaecati nam culpa nulla iure ducimus earum nesciunt quos eum explicabo. Animi temporibus tempore doloremque voluptatem sint architecto magnam quaerat non amet ad perferendis eos nemo cumque nulla eum eius libero nobis, perspiciatis veritatis repellendus, qui corporis. Veniam, delectus? Nobis dolores, eius nostrum maiores similique veniam perspiciatis expedita! Enim ipsum quae placeat!</p>`,
+  // };
 
   sendMail(mail);
 
@@ -81,17 +81,17 @@ const resendEmail = async (req, res) => {
     throw RequestError(400, 'Email already verify');
   }
 
-  // const mail = {
-  //   to: email,
-  //   subject: 'Email verification',
-  //   html: `<a href="http://localhost:3000/api/auth/verify/${user.verificationToken}" target="_blank">Verify email</a>`,
-  // };
-
   const mail = {
     to: email,
-    subject: 'After approve',
-    html: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consectetur, dolores ea perspiciatis deleniti rerum odit aliquid accusamus. Atque debitis architecto a nostrum natus. Doloremque aliquam odit eos quam adipisci minus quisquam expedita, fugiat, veritatis, illum animi nisi. Ullam nisi qui, assumenda libero, fugit magni, adipisci possimus repellat obcaecati nam culpa nulla iure ducimus earum nesciunt quos eum explicabo. Animi temporibus tempore doloremque voluptatem sint architecto magnam quaerat non amet ad perferendis eos nemo cumque nulla eum eius libero nobis, perspiciatis veritatis repellendus, qui corporis. Veniam, delectus? Nobis dolores, eius nostrum maiores similique veniam perspiciatis expedita! Enim ipsum quae placeat!</p>`,
+    subject: 'Email verification',
+    html: `<a href="http://localhost:3000/api/auth/verify/${user.verificationToken}" target="_blank">Verify email</a>`,
   };
+
+  // const mail = {
+  //   to: email,
+  //   subject: 'After approve',
+  //   html: `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consectetur, dolores ea perspiciatis deleniti rerum odit aliquid accusamus. Atque debitis architecto a nostrum natus. Doloremque aliquam odit eos quam adipisci minus quisquam expedita, fugiat, veritatis, illum animi nisi. Ullam nisi qui, assumenda libero, fugit magni, adipisci possimus repellat obcaecati nam culpa nulla iure ducimus earum nesciunt quos eum explicabo. Animi temporibus tempore doloremque voluptatem sint architecto magnam quaerat non amet ad perferendis eos nemo cumque nulla eum eius libero nobis, perspiciatis veritatis repellendus, qui corporis. Veniam, delectus? Nobis dolores, eius nostrum maiores similique veniam perspiciatis expedita! Enim ipsum quae placeat!</p>`,
+  // };
 
   sendMail(mail);
 
